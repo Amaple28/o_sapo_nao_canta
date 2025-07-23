@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Terra Onde o Sapo Não Canta - Marcelo Félix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> 
+    <link rel="icon" href="capa.png" type="image/gif">
+    <style>
+        /* Custom styles to match the book's aesthetic */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0f2fe; /* Light blue background, similar to the book's sky */
+            color: #333;
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Fredoka One', cursive;
+            color: #00a0dc; /* A vibrant blue from the book's title */
+        }
+        .btn-primary {
+            background-color: #ff6347; /* A vibrant orange-red, like some letters in the title */
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px; /* Fully rounded */
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            background-color: #e65c3e; /* Darker shade on hover */
+            transform: translateY(-3px); /* Subtle lift effect */
+        }
+        .section-title {
+            font-size: 3rem; /* Larger for impact */
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #00a0dc; /* Vibrant blue */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366; /* WhatsApp green */
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            background-color: #1DA851; /* Darker green on hover */
+        }
+        .pix-qr-container {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .pix-qr-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.15);
+        }
+        .book-cover-image {
+            max-width: 50%; /* Adjust as needed for responsiveness */
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+            transition: transform 0.5s ease;
+        }
+        .book-cover-image:hover {
+            transform: scale(1.03); /* Slight zoom on hover */
+        }
+
+        /* Hero Section Background Animation */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-background-animated {
+            background: linear-gradient(-45deg, #a0dcee, #00a0dc, #63b3ed, #007bb6);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        /* Navigation Bar Enhancements */
+        .navbar {
+            background-color: #00a0dc; /* Vibrant blue from book */
+            transition: background-color 0.3s ease, padding 0.3s ease;
+            padding: 1rem 0; /* Initial padding */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .navbar.scrolled {
+            background-color: #007bb6; /* Darker blue when scrolled */
+            padding: 0.75rem 0; /* Smaller padding when scrolled */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .navbar .site-title {
+            color: white; /* White for better visibility */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Subtle shadow */
+            transition: font-size 0.3s ease;
+        }
+        .navbar.scrolled .site-title {
+            font-size: 1.75rem; /* Slightly smaller when scrolled */
+        }
+        .nav-link {
+            color: white;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #e0f2fe; /* Light blue on hover */
+        }
+
+        /* Mobile Menu */
+        .hamburger-menu {
+            display: none; /* Hidden by default on larger screens */
+            font-size: 2rem;
+            cursor: pointer;
+            color: white;
+        }
+        .mobile-nav-links {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            background-color: #00a0dc;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            padding: 1rem 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .mobile-nav-links.open {
+            display: flex;
+        }
+        .mobile-nav-links li {
+            text-align: center;
+            padding: 0.75rem 0;
+        }
+        .mobile-nav-links a {
+            color: white;
+            display: block;
+            padding: 0.5rem 0;
+            transition: background-color 0.3s ease;
+        }
+        .mobile-nav-links a:hover {
+            background-color: #007bb6;
+        }
+
+        /* Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #a0dcee, #00a0dc); /* Gradient similar to hero */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.7s ease-out;
+            opacity: 1;
+        }
+        #loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none; /* Allows clicks through once hidden */
+        }
+        #loading-screen img.frog-loader {
+            width: 150px; /* Adjust size of the frog */
+            height: auto;
+            margin-bottom: 20px;
+            animation: bounce 1.2s infinite; /* Add a bounce animation */
+        }
+
+        #loading-screen .loading-text {
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .book-cover-image {
+                max-width: 95%;
+            }
+            .btn-primary {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+            .floating-whatsapp {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+            }
+            .navbar .site-title {
+                font-size: 1.75rem; /* Smaller title on mobile */
+            }
+            .navbar .flex.space-x-6 { /* Hide desktop nav links */
+                display: none;
+            }
+            .hamburger-menu {
+                display: block; /* Show hamburger on mobile */
+            }
+            #loading-screen img.frog-loader {
+                width: 100px; /* Smaller frog on mobile */
+            }
+            #loading-screen .loading-text {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div id="loading-screen">
+        <img src="sapos.png" alt="Sapinho Carregando" class="frog-loader">
+        <div class="loading-text">Carregando a Terra do Sapo...</div>
+    </div>
+
+    <header class="navbar">
+        <nav class="container mx-auto flex justify-between items-center px-4">
+            <a href="#" class="text-3xl font-bold font-fredoka-one site-title">A Terra Onde o Sapo Não Canta</a>
+            <div class="hamburger-menu" id="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="flex space-x-6 md:flex" id="nav-links">
+                <li><a href="#home" class="nav-link">Início</a></li>
+                <li><a href="#about-book" class="nav-link">O Livro</a></li>
+                <li><a href="#about-author" class="nav-link">O Autor</a></li>
+                <li><a href="#buy" class="nav-link">Comprar</a></li>
+            </ul>
+        </nav>
+        <ul class="mobile-nav-links" id="mobile-nav-links">
+            <li><a href="#home">Início</a></li>
+            <li><a href="#about-book">O Livro</a></li>
+            <li><a href="#about-author">O Autor</a></li>
+            <li><a href="#buy">Comprar</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <section id="home" class="relative hero-background-animated text-white py-20 md:py-32 flex flex-col items-center justify-center text-center overflow-hidden pt-32"> <div class="container mx-auto px-4 z-10">
+                <h1 class="text-5xl md:text-7xl font-fredoka-one mb-6 leading-tight drop-shadow-lg" data-aos="fade-up" data-aos-duration="1000">
+                    A Terra Onde o Sapo Não Canta
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto font-inter font-light" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+                    Uma história encantadora sobre amizade, tradição e um segredo que transformou uma cidade inteira.
+                </p>
+                <img src="capa.png" alt="Capa do Livro A Terra Onde o Sapo Não Canta" class="book-cover-image mx-auto" data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1000">
+                <a href="#buy" class="btn-primary inline-block mt-8" data-aos="fade-up" data-aos-delay="900" data-aos-duration="1000">Comprar Agora</a>
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full z-0 opacity-20">
+                <div class="absolute w-40 h-40 bg-yellow-300 rounded-full -top-10 -left-10 animate-pulse"></div>
+                <div class="absolute w-60 h-60 bg-green-300 rounded-full -bottom-20 -right-20 animate-pulse delay-200"></div>
+            </div>
+        </section>
+
+        <section id="about-book" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="800">Descubra a Magia do Livro</h2>
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-2/3" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000">
+                        <p class="text-lg mb-4 text-gray-700">
+                            Em "A Terra Onde o Sapo Não Canta", Marcelo Félix nos leva a uma jornada inesquecível por Alagoa Grande, na Paraíba, através dos olhos do carismático Sapinho Tião.
+                        </p>
+                        <p class="text-lg mb-4 text-gray-700">
+                            Tião, que nasceu na Lagoa do Paó, tem uma alegria contagiante: cantar para o povo de sua terra. Mas um dia, um acontecimento inesperado silencia não só Tião, mas todos os sapos da lagoa!
+                        </p>
+                        <p class="text-lg text-gray-700">
+                            O que será que aconteceu? Como Alagoa Grande se tornou a "Terra Onde o Sapo Não Canta"? Embarque nesta aventura cheia de cultura, tradição e um mistério que só a leitura pode revelar!
+                        </p>
+                    </div>
+                    <div class="md:w-1/3 flex justify-center" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000">
+                        <img src="sapinho.png" alt="Ilustração do Sapinho Tião" class="rounded-lg shadow-xl w-80 h-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-author" class="py-16 md:py-24 bg-blue-50">
+            <div class="container mx-auto px-4">
+                <h2 class="section-title" data-aos="fade-left" data-aos-duration="800">Sobre o Autor</h2>
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/3 flex justify-center" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1000">
+                        <img src="marcelo.png" alt="Foto do autor Marcelo Félix" class="rounded-full shadow-xl w-64 h-64 object-cover border-4 border-white">
+                    </div>
+                    <div class="md:w-2/3 text-center md:text-left" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
+                        <h3 class="text-3xl font-fredoka-one text-blue-800 mb-4">Marcelo Félix Lopes</h3>
+                        <p class="text-lg mb-4 text-gray-700">
+                            Nascido em 1972, em Alagoa Grande, Paraíba, Marcelo Félix Lopes é Bacharel em Administração (UFPB), empresário, produtor cultural, músico e escritor. Filho de "Seu Doca e Dona Bibiu", é casado com Giovânia e pai de Maria Elisabeth, Maria Eduarda, Renato, e avô de Antony Mickael, a quem dedicou esta obra.
+                        </p>
+                        <p class="text-lg text-gray-700">
+                            Como ativista cultural, produziu o espetáculo "A Paixão de Cristo em Alagoa Grande" e foi Secretário da Cultura e Turismo de sua cidade natal, contribuindo significativamente para a valorização do patrimônio local. Sua paixão por Alagoa Grande e sua rica cultura se refletem em suas obras.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="buy" class="py-16 md:py-24 bg-gradient-to-t from-sky-400 to-blue-600 text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="section-title text-white" data-aos="fade-down" data-aos-duration="800">Adquira Seu Exemplar!</h2>
+                <p class="text-xl mb-8 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+                    Garanta já o seu livro "A Terra Onde o Sapo Não Canta" e mergulhe nesta aventura única.
+                </p>
+
+                <div class="pix-qr-container mx-auto max-w-md" data-aos="zoom-in" data-aos-delay="400" data-aos-duration="1000">
+                    <h3 class="text-2xl font-fredoka-one text-blue-800">Pagamento via Pix</h3>
+                    <p class="text-gray-700 text-lg">
+                        Escaneie o QR Code abaixo para fazer o pagamento do livro.
+                    </p>
+                    <img src="https://placehold.co/250x250/00a0dc/ffffff?text=QR+Code+Pix" alt="QR Code Pix para pagamento" class="w-64 h-64 rounded-lg border-4 border-blue-200">
+                    <p class="text-gray-700 text-sm font-semibold">Chave Pix (CNPJ): 54.199.316/0001-83</p>
+                    <p class="text-gray-700 text-lg mt-4">
+                        Após o pagamento, envie o comprovante para o nosso WhatsApp para que possamos confirmar e providenciar o envio do seu livro!
+                    </p>
+                    <a id="whatsapp-proof-btn" href="#" class="btn-primary flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Enviar Comprovante
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-blue-800 text-white p-6 text-center">
+        <div class="container mx-auto"> 
+            <p>
+                A Terra Onde o Sapo Não Canta. Todos os direitos reservados. © 2025 Designed by 
+                <a href="https://www.isluwebdesign.com.br" target="_blank">Islu Web Design</a>
+            </p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20livro%20'A%20Terra%20Onde%20o%20Sapo%20N%C3%A3o%20Canta'." class="floating-whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true, // Whether animation should happen only once - while scrolling down
+            duration: 2000, // Duration of animation (ms)
+            easing: 'ease-out-cubic', // Easing type
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Close mobile menu if open
+                const mobileNavLinks = document.getElementById('mobile-nav-links');
+                if (mobileNavLinks.classList.contains('open')) {
+                    mobileNavLinks.classList.remove('open');
+                }
+            });
+        });
+
+        // JavaScript for the WhatsApp proof button
+        document.getElementById('whatsapp-proof-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const pixKey = "54.199.316/0001-83"; // Your client's Pix key
+            // IMPORTANT: Replace '5511999999999' with the actual WhatsApp number for sending proof
+            const whatsappNumber = "5511999999999";
+            const message = encodeURIComponent(`Olá! Envio o comprovante de pagamento do livro "A Terra Onde o Sapo Não Canta". A chave Pix utilizada foi: ${pixKey}.`);
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) { // Adjust scroll threshold as needed
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const mobileNavLinks = document.getElementById('mobile-nav-links');
+
+        hamburgerMenu.addEventListener('click', function() {
+            mobileNavLinks.classList.toggle('open');
+        });
+
+        // Hide loading screen when the page finishes loading
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            // Adding a small delay to allow the frog animation to be seen
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                document.body.style.overflowY = 'auto'; // Re-enable scroll after loading
+            }, 1000); // 1 second delay
+        });
+
+        // Ensure body scroll is hidden during loading
+        document.body.style.overflowY = 'hidden';
+    </script>
+</body>
+</html>
