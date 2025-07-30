@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adquira Seu Exemplar - A Terra Onde o Sapo Não Canta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" href="capa.png" type="image/png">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 50%, #81d4fa 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Fredoka One', cursive;
+            color: #00a0dc;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6347, #ff4500);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 99, 71, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #00a0dc, #0077b6);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 160, 220, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 160, 220, 0.4);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .price-tag {
+            background: linear-gradient(45deg, #4caf50, #45a049);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .payment-step {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #00a0dc;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .qr-container {
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 3px solid #00a0dc;
+            display: none;
+            animation: fadeInScale 0.5s ease-out;
+        }
+        
+        .qr-container.show {
+            display: block;
+        }
+        
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .floating-frog {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-frog:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-frog:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+        
+        .floating-frog:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .navbar {
+            background: rgba(0, 160, 220, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar a:hover {
+            color: #e0f2fe;
+            transform: translateY(-2px);
+        }
+        
+        .book-preview {
+            max-width: 300px;
+            border-radius: 1rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .book-preview:hover {
+            transform: scale(1.05) rotateY(5deg);
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            .price-tag {
+                font-size: 1.5rem;
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .book-preview {
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <img src="sapinho.png" alt="" class="floating-frog">
+        <img src="sapinho.png" alt="" class="floating-frog">
+        <img src="sapinho.png" alt="" class="floating-frog">
+    </div>
+
+    <header class="navbar">
+        <nav class="container mx-auto flex justify-between items-center px-4">
+            <a href="site.html" class="text-2xl font-bold font-fredoka-one">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Voltar ao Site
+            </a>
+            <a href="site.html" class="text-xl font-fredoka-one">A Terra Onde o Sapo Não Canta</a>
+        </nav>
+    </header>
+
+    <main class="pt-24 pb-16">
+        <div class="container mx-auto px-4">
+            <!-- Cabeçalho da Página -->
+            <div class="text-center mb-12" data-aos="fade-down">
+                <h1 class="text-5xl md:text-6xl font-fredoka-one mb-4 drop-shadow-lg">
+                    Adquira Seu Exemplar
+                </h1>
+                <p class="text-xl text-blue-500 max-w-2xl mx-auto">
+                    Mergulhe na aventura mágica do Sapinho Tião e descubra os segredos de Alagoa Grande!
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Informações do Livro -->
+                <div class="card" data-aos="fade-right">
+                    <div class="text-center mb-6">
+                        <img src="capa.png" alt="Capa do Livro" class="book-preview mx-auto mb-4">
+                        <h2 class="text-3xl font-fredoka-one mb-2">A Terra Onde o Sapo Não Canta</h2>
+                        <p class="text-lg text-gray-600 mb-4">Por Marcelo Félix Lopes</p>
+                        
+                        <div class="price-tag mx-auto mb-6">
+                            R$ 24,99
+                        </div>
+                        
+                        <div class="bg-blue-50 rounded-xl p-4 mb-6">
+                            <h3 class="text-xl font-fredoka-one text-blue-800 mb-2">
+                                <i class="fas fa-book mr-2"></i>
+                                Detalhes do Livro
+                            </h3>
+                            <ul class="text-left space-y-2 text-gray-700">
+                                <li><i class="fas fa-check text-green-500 mr-2"></i>Livro físico impresso</li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i>História original e cativante</li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i>Ilustrações coloridas</li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i>Ideal para todas as idades</li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i>Frete incluso para todo o Brasil</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processo de Pagamento -->
+                <div class="card" data-aos="fade-left">
+                    <h2 class="text-3xl font-fredoka-one mb-6 text-center">
+                        <i class="fas fa-credit-card mr-2"></i>
+                        Como Comprar
+                    </h2>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="payment-step">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">1</div>
+                                <h3 class="text-lg font-semibold">Clique em "Pagar com PIX"</h3>
+                            </div>
+                            <p class="text-gray-600 ml-11">O QR Code aparecerá para você escanear com seu celular</p>
+                        </div>
+                        
+                        <div class="payment-step">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">2</div>
+                                <h3 class="text-lg font-semibold">Faça o pagamento via PIX</h3>
+                            </div>
+                            <p class="text-gray-600 ml-11">Use o app do seu banco para escanear o código e pagar R$ 24,99</p>
+                        </div>
+                        
+                        <div class="payment-step">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">3</div>
+                                <h3 class="text-lg font-semibold">Envie o comprovante</h3>
+                            </div>
+                            <p class="text-gray-600 ml-11">Mande o comprovante pelo WhatsApp com seu endereço completo</p>
+                        </div>
+                        
+                        <div class="payment-step">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">4</div>
+                                <h3 class="text-lg font-semibold">Receba em casa</h3>
+                            </div>
+                            <p class="text-gray-600 ml-11">Seu livro será enviado pelos Correios em até 5 dias úteis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center space-y-4">
+                        <button onclick="showQRCode()" class="btn-primary w-full">
+                            <i class="fas fa-qrcode mr-2"></i>
+                            Pagar com PIX - R$ 24,99
+                        </button>
+                        
+                        <div id="qr-container" class="qr-container">
+                            <h3 class="text-2xl font-fredoka-one text-blue-800 mb-4">
+                                <i class="fas fa-mobile-alt mr-2"></i>
+                                Escaneie o QR Code
+                            </h3>
+                            <img src="qrcode.png" alt="QR Code PIX" class="w-64 h-64 mx-auto mb-4 rounded-lg border-4 border-blue-200">
+                            <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                                <p class="text-sm text-gray-600 mb-2">Chave PIX (CNPJ):</p>
+                                <p class="font-mono text-lg font-bold text-blue-800">57.897.970/0001-59</p>
+                            </div>
+                            <p class="text-gray-600 text-sm">
+                                Abra o app do seu banco, escaneie o código e confirme o pagamento de R$ 24,99
+                            </p>
+                        </div>
+                        
+                        <a href="https://wa.me/5583999999999?text=Olá! Acabei de fazer o pagamento do livro 'A Terra Onde o Sapo Não Canta' via PIX. Segue o comprovante:" 
+                           target="_blank" class="btn-secondary inline-block">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            Enviar Comprovante via WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Seção de Garantia e Segurança -->
+            <div class="card max-w-4xl mx-auto mt-12" data-aos="fade-up">
+                <div class="text-center">
+                    <h2 class="text-3xl font-fredoka-one mb-6">
+                        <i class="fas fa-shield-alt mr-2 text-green-500"></i>
+                        Compra 100% Segura
+                    </h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-lock text-green-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Pagamento Seguro</h3>
+                            <p class="text-gray-600 text-sm">PIX é o método de pagamento mais seguro do Brasil</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-shipping-fast text-blue-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Entrega Garantida</h3>
+                            <p class="text-gray-600 text-sm">Frete grátis para todo o Brasil via Correios</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-headset text-purple-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Suporte Direto</h3>
+                            <p class="text-gray-600 text-sm">Atendimento personalizado via WhatsApp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-blue-800 text-white p-6 text-center">
+        <div class="container mx-auto">
+            <p class="mb-2">
+                A Terra Onde o Sapo Não Canta - Todos os direitos reservados © 2025
+            </p>
+            <p class="text-sm opacity-75">
+                Desenvolvido com ❤️ pela <a href="https://www.isluwebdesign.com.br" target="_blank" class="hover:text-blue-200">Islu Web Design</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+        
+        function showQRCode() {
+            const qrContainer = document.getElementById('qr-container');
+            qrContainer.classList.add('show');
+            qrContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
+

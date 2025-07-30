@@ -100,6 +100,147 @@
             background: linear-gradient(-45deg, #a0dcee, #00a0dc, #63b3ed, #007bb6);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Elementos Flutuantes Mágicos */
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: floatParticle 8s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) {
+            width: 8px;
+            height: 8px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 6s;
+        }
+
+        .particle:nth-child(2) {
+            width: 12px;
+            height: 12px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+            animation-duration: 8s;
+        }
+
+        .particle:nth-child(3) {
+            width: 6px;
+            height: 6px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+            animation-duration: 7s;
+        }
+
+        .particle:nth-child(4) {
+            width: 10px;
+            height: 10px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 1s;
+            animation-duration: 9s;
+        }
+
+        .particle:nth-child(5) {
+            width: 14px;
+            height: 14px;
+            top: 50%;
+            left: 50%;
+            animation-delay: 3s;
+            animation-duration: 5s;
+        }
+
+        @keyframes floatParticle {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) scale(1);
+                opacity: 0.6;
+            }
+            25% {
+                transform: translateY(-30px) translateX(10px) scale(1.2);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-60px) translateX(-10px) scale(0.8);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-30px) translateX(15px) scale(1.1);
+                opacity: 0.7;
+            }
+        }
+
+        /* Efeito de Brilho nos Cards */
+        .enchanted-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enchanted-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        /* Melhorias nos Botões */
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6347, #ff4500);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 99, 71, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 99, 71, 0.4);
+        }
+
+        /* Efeito de Parallax Sutil */
+        .parallax-element {
+            transition: transform 0.1s ease-out;
         }
 
         /* Navigation Bar Enhancements */
@@ -257,7 +398,7 @@
 
     <header class="navbar">
         <nav class="container mx-auto flex justify-between items-center px-4">
-            <a href="#" class="text-3xl font-bold font-fredoka-one site-title">A Terra Onde o Sapo Não Canta</a>
+            <a href="#" class="text-3xl font-bold font-fredoka-one site-title">ALAGOA GRANDE, PARAÍBA</a>
             <div class="hamburger-menu" id="hamburger-menu">
                 <i class="fas fa-bars"></i>
             </div>
@@ -265,37 +406,45 @@
                 <li><a href="#home" class="nav-link">Início</a></li>
                 <li><a href="#about-book" class="nav-link">O Livro</a></li>
                 <li><a href="#about-author" class="nav-link">O Autor</a></li>
-                <li><a href="#buy" class="nav-link">Comprar</a></li>
+                <li><a href="parceiros.html" class="nav-link">Parceiros</a></li>
+                <li><a href="pagamento.html" class="nav-link">Comprar</a></li>
             </ul>
         </nav>
         <ul class="mobile-nav-links" id="mobile-nav-links">
             <li><a href="#home">Início</a></li>
             <li><a href="#about-book">O Livro</a></li>
             <li><a href="#about-author">O Autor</a></li>
-            <li><a href="#buy">Comprar</a></li>
+            <li><a href="parceiros.html">Parceiros</a></li>
+            <li><a href="pagamento.html">Comprar</a></li>
         </ul>
     </header>
 
     <main>
-        <section id="home" class="relative hero-background-animated text-white py-20 md:py-32 flex flex-col items-center justify-center text-center overflow-hidden pt-32"> <div class="container mx-auto px-4 z-10">
-                <h1 class="text-5xl md:text-7xl font-fredoka-one mb-6 leading-tight drop-shadow-lg" data-aos="fade-up" data-aos-duration="1000">
+        <section id="home" class="relative hero-background-animated text-white py-20 md:py-32 flex flex-col items-center justify-center text-center overflow-hidden pt-32 wave-background">
+            <!-- Partículas Flutuantes Mágicas -->
+            <div class="floating-particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
+            
+            <div class="container mx-auto px-4 z-10">
+                <h1 class="text-5xl text-white md:text-7xl font-fredoka-one mb-6 leading-tight drop-shadow-lg" data-aos="fade-up" data-aos-duration="1000">
                     A Terra Onde o Sapo Não Canta
                 </h1>
                 <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto font-inter font-light" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-                    Uma história encantadora sobre amizade, tradição e um segredo que transformou uma cidade inteira.
+                    O encanto e a magia de uma história que já conquistou o coração de várias gerações.
                 </p>
                 <img src="capa.png" alt="Capa do Livro A Terra Onde o Sapo Não Canta" class="book-cover-image mx-auto" data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1000">
-                <a href="#buy" class="btn-primary inline-block mt-8" data-aos="fade-up" data-aos-delay="900" data-aos-duration="1000">Comprar Agora</a>
-            </div>
-            <div class="absolute top-0 left-0 w-full h-full z-0 opacity-20">
-                <div class="absolute w-40 h-40 bg-yellow-300 rounded-full -top-10 -left-10 animate-pulse"></div>
-                <div class="absolute w-60 h-60 bg-green-300 rounded-full -bottom-20 -right-20 animate-pulse delay-200"></div>
+                <a href="pagamento.html" class="btn-primary inline-block mt-8" data-aos="fade-up" data-aos-delay="900" data-aos-duration="1000">Comprar Agora</a>
             </div>
         </section>
 
-        <section id="about-book" class="py-16 md:py-24 bg-white">
+        <section id="about-book" class="py-16 md:py-24 bg-white enchanted-card">
             <div class="container mx-auto px-4">
-                <h2 class="section-title" data-aos="fade-right" data-aos-duration="800">Descubra a Magia do Livro</h2>
+                <h2 class="section-title parallax-element" data-aos="fade-right" data-aos-duration="800">Descubra a Magia do Livro</h2>
                 <div class="flex flex-col md:flex-row items-center gap-8">
                     <div class="md:w-2/3" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000">
                         <p class="text-lg mb-4 text-gray-700">
@@ -309,13 +458,13 @@
                         </p>
                     </div>
                     <div class="md:w-1/3 flex justify-center" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000">
-                        <img src="sapinho.png" alt="Ilustração do Sapinho Tião" class="rounded-lg shadow-xl w-80 h-auto">
+                        <img src="sapinho.png" alt="Ilustração do Sapinho Tião" class="rounded-lg shadow-xl w-80 h-auto parallax-element hover:scale-110 transition-transform duration-500">
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="about-author" class="py-16 md:py-24 bg-blue-50">
+        <section id="about-author" class="py-16 md:py-24 bg-blue-50 enchanted-card">
             <div class="container mx-auto px-4">
                 <h2 class="section-title" data-aos="fade-left" data-aos-duration="800">Sobre o Autor</h2>
                 <div class="flex flex-col md:flex-row items-center gap-8">
@@ -335,41 +484,129 @@
             </div>
         </section>
 
+        <!-- Seção Chamada para Parceiros -->
+        <section class="py-16 md:py-24 bg-gradient-to-r from-green-50 to-emerald-100">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12" data-aos="zoom-in" data-aos-duration="1000">
+                        <div class="mb-8">
+                            <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl p-6 mb-6 inline-block">
+                                <i class="fas fa-users text-4xl mb-2"></i>
+                                <h2 class="text-3xl font-fredoka-one text-white ">Nossos Parceiros</h2>
+                            </div>
+                        </div>
+                        
+                        <p class="text-xl mb-6 text-gray-700 leading-relaxed">
+                            "A Terra Onde o Sapo Não Canta" só foi possível graças à colaboração especial de pessoas e organizações que acreditaram na magia desta história.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <div class="text-center p-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-handshake text-blue-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg mb-2">Colaboração</h3>
+                                <p class="text-gray-600 text-sm">Cada parceiro contribuiu de forma única para o projeto</p>
+                            </div>
+                            
+                            <div class="text-center p-4" data-aos="fade-up" data-aos-delay="300">
+                                <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-heart text-purple-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg mb-2">Dedicação</h3>
+                                <p class="text-gray-600 text-sm">Apoio e talento dedicados à preservação cultural</p>
+                            </div>
+                            
+                            <div class="text-center p-4" data-aos="fade-up" data-aos-delay="400">
+                                <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                    <i class="fas fa-star text-green-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg mb-2">Excelência</h3>
+                                <p class="text-gray-600 text-sm">Qualidade e profissionalismo em cada etapa</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 mb-8">
+                            <p class="text-gray-700 mb-4 text-lg">
+                                <i class="fas fa-quote-left text-green-500 mr-2"></i>
+                                "Desde a concepção da história até a produção final, cada colaboração foi essencial para transformar uma ideia em realidade, preservando a cultura e tradições de Alagoa Grande."
+                                <i class="fas fa-quote-right text-green-500 ml-2"></i>
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <a href="parceiros.html" 
+                               class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-10 py-4 rounded-full font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg inline-flex items-center gap-3 text-lg">
+                                <i class="fas fa-users"></i>
+                                Conheça Nossos Parceiros
+                            </a>
+                            <p class="text-sm text-gray-600">
+                                Descubra quem tornou este projeto possível
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="buy" class="py-16 md:py-24 bg-gradient-to-t from-sky-400 to-blue-600 text-white">
             <div class="container mx-auto px-4 text-center">
                 <h2 class="section-title text-white" data-aos="fade-down" data-aos-duration="800">Adquira Seu Exemplar!</h2>
                 <p class="text-xl mb-8 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-                    Garanta já o seu livro "A Terra Onde o Sapo Não Canta" e mergulhe nesta aventura única.
+                    Garanta já o seu livro "A Terra Onde o Sapo Não Canta" e mergulhe nesta aventura única por apenas <strong>R$ 24,99</strong> com frete grátis para todo o Brasil!
                 </p>
 
-                <div class="pix-qr-container mx-auto max-w-md" data-aos="zoom-in" data-aos-delay="400" data-aos-duration="1000">
-                    <h3 class="text-2xl font-fredoka-one text-blue-800">Pagamento via Pix</h3>
-                    <p class="text-gray-700 text-lg">
-                        Escaneie o QR Code abaixo para fazer o pagamento do livro.
-                    </p>
-                    <img src="https://placehold.co/250x250/00a0dc/ffffff?text=QR+Code+Pix" alt="QR Code Pix para pagamento" class="w-64 h-64 rounded-lg border-4 border-blue-200">
-                    <p class="text-gray-700 text-sm font-semibold">Chave Pix (CNPJ): 54.199.316/0001-83</p>
-                    <p class="text-gray-700 text-lg mt-4">
-                        Após o pagamento, envie o comprovante para o nosso WhatsApp para que possamos confirmar e providenciar o envio do seu livro!
-                    </p>
-                    <a id="whatsapp-proof-btn" href="#" class="btn-primary flex items-center justify-center gap-2">
-                        <i class="fab fa-whatsapp"></i> Enviar Comprovante
-                    </a>
+                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 max-w-2xl mx-auto mb-8" data-aos="zoom-in" data-aos-delay="400" data-aos-duration="1000">
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="text-center">
+                            <div class="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-book text-3xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg mb-2 text-white">Livro Físico</h3>
+                            <p class="text-sm opacity-90">História original com ilustrações coloridas</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-shipping-fast text-3xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg mb-2 text-white">Frete Grátis</h3>
+                            <p class="text-sm opacity-90">Entrega para todo o Brasil via Correios</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-heart text-3xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg mb-2 text-white">Para Toda Família</h3>
+                            <p class="text-sm opacity-90">Ideal para crianças e adultos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <a href="pagamento.html" class="btn-primary inline-block text-xl px-12 py-4 transform hover:scale-105 transition-all duration-300">
+                            <i class="fas fa-shopping-cart mr-3"></i>
+                            Comprar Agora - R$ 24,99
+                        </a>
+                        <p class="text-sm opacity-75">
+                            Pagamento seguro via PIX • Entrega em até 5 dias úteis
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="bg-blue-800 text-white p-6 text-center">
-        <div class="container mx-auto"> 
-            <p>
-                A Terra Onde o Sapo Não Canta. Todos os direitos reservados. © 2025 Designed by 
-                <a href="https://www.isluwebdesign.com.br" target="_blank">Islu Web Design</a>
+        <div class="container mx-auto">
+            <p class="mb-2">
+                A Terra Onde o Sapo Não Canta - Todos os direitos reservados © 2025
+            </p>
+            <p class="text-sm opacity-75">
+                Desenvolvido com ❤️ pela <a href="https://www.isluwebdesign.com.br" target="_blank" class="hover:text-blue-200">Islu Web Design</a>
             </p>
         </div>
     </footer>
 
-    <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20livro%20'A%20Terra%20Onde%20o%20Sapo%20N%C3%A3o%20Canta'." class="floating-whatsapp" target="_blank">
+    <a href="https://wa.me/5583991394073?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20livro%20'A%20Terra%20Onde%20o%20Sapo%20N%C3%A3o%20Canta'." class="floating-whatsapp" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -399,13 +636,18 @@
         });
 
         // JavaScript for the WhatsApp proof button
-        document.getElementById('whatsapp-proof-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            const pixKey = "54.199.316/0001-83"; // Your client's Pix key
-            // IMPORTANT: Replace '5511999999999' with the actual WhatsApp number for sending proof
-            const whatsappNumber = "5511999999999";
-            const message = encodeURIComponent(`Olá! Envio o comprovante de pagamento do livro "A Terra Onde o Sapo Não Canta". A chave Pix utilizada foi: ${pixKey}.`);
-            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        document.addEventListener("DOMContentLoaded", function () {
+            const whatsappBtn = document.getElementById('whatsapp-proof-btn');
+
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const pixKey = "54.199.316/0001-83";
+                    const whatsappNumber = "5511999999999"; // Substituir pelo número real
+                    const message = encodeURIComponent(`Olá! Envio o comprovante de pagamento do livro "A Terra Onde o Sapo Não Canta". A chave Pix utilizada foi: ${pixKey}.`);
+                    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+                });
+            }
         });
 
         // Navbar scroll effect
@@ -438,6 +680,26 @@
 
         // Ensure body scroll is hidden during loading
         document.body.style.overflowY = 'hidden';
+
+        // Efeito de Parallax Sutil
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax-element');
+            
+            parallaxElements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const elementTop = rect.top + scrolled;
+                const elementHeight = rect.height;
+                const windowHeight = window.innerHeight;
+                
+                // Só aplica o efeito se o elemento estiver visível
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    const speed = 0.02; // Velocidade do parallax (quanto menor, mais sutil)
+                    const yPos = -(scrolled - elementTop) * speed;
+                    element.style.transform = `translateY(${yPos}px)`;
+                }
+            });
+        }); 
     </script>
 </body>
 </html>
