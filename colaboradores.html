@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colaboradores - A Terra Onde o Sapo Não Canta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" href="capa.png" type="image/png">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 30%, #81d4fa 70%, #4fc3f7 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Fredoka One', cursive;
+            color: #00a0dc;
+        }
+        
+        .navbar {
+            background: rgba(0, 160, 220, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar a:hover {
+            color: #e0f2fe;
+            transform: translateY(-2px);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #00a0dc, #0077b6, #023e8a);
+            padding: 8rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+        
+        .collaborator-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .collaborator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 160, 220, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .collaborator-card:hover::before {
+            left: 100%;
+        }
+        
+        .collaborator-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .photo-placeholder {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 3px solid #00a0dc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .photo-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 160, 220, 0.1);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+        }
+        
+        .collaborator-card:hover .photo-placeholder::before {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .photo-placeholder i {
+            font-size: 3rem;
+            color: #00a0dc;
+            opacity: 0.6;
+            z-index: 1;
+            position: relative;
+        }
+        
+        .collaborator-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00a0dc;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .collaborator-role {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ff6347;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .collaborator-description {
+            color: #666;
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-shape:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            width: 80px;
+            height: 80px;
+            background: #ff6347;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+        
+        .floating-shape:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            width: 60px;
+            height: 60px;
+            background: #4caf50;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-delay: 2s;
+        }
+        
+        .floating-shape:nth-child(3) {
+            bottom: 20%;
+            left: 15%;
+            width: 100px;
+            height: 100px;
+            background: #9c27b0;
+            border-radius: 20%;
+            animation-delay: 4s;
+        }
+        
+        .floating-shape:nth-child(4) {
+            top: 30%;
+            right: 25%;
+            width: 70px;
+            height: 70px;
+            background: #ff9800;
+            border-radius: 50% 0 50% 0;
+            animation-delay: 6s;
+        }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+            }
+            25% { 
+                transform: translateY(-20px) rotate(5deg); 
+            }
+            50% { 
+                transform: translateY(-10px) rotate(-5deg); 
+            }
+            75% { 
+                transform: translateY(-30px) rotate(3deg); 
+            }
+        }
+        
+        .section-intro {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            padding: 3rem;
+            margin: 2rem auto;
+            max-width: 4xl;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .thank-you-section {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            border-radius: 2rem;
+            padding: 3rem;
+            margin: 4rem auto 2rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-back {
+            background: linear-gradient(45deg, #00a0dc, #0077b6);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 160, 220, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 160, 220, 0.4);
+            color: white;
+        }
+        
+        .stats-section {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 2rem auto;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00a0dc;
+            font-family: 'Fredoka One', cursive;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 6rem 0 3rem;
+            }
+            
+            .section-intro {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .collaborator-card {
+                padding: 1.5rem;
+            }
+            
+            .photo-placeholder {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .collaborator-name {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <header class="navbar">
+        <nav class="container mx-auto flex justify-between items-center px-4">
+            <a href="site.html" class="text-2xl font-bold font-fredoka-one">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Voltar
+            </a>
+            <a href="site.html" class="text-xl font-fredoka-one">A Terra Onde o Sapo Não Canta</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section text-white text-center relative">
+            <div class="container mx-auto px-4 relative z-10">
+                <h1 class="text-5xl md:text-7xl text-white font-fredoka-one mb-6 drop-shadow-lg" data-aos="fade-down">
+                    Nossos Colaboradores
+                </h1>
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="300">
+                    Conheça as pessoas especiais que atuaram junto comigo na confecção desta obra mágica
+                </p>
+            </div>
+        </section>
+
+        <!-- Introdução -->
+        <section class="py-8">
+            <div class="container mx-auto px-4">
+                <div class="section-intro" data-aos="zoom-in">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-fredoka-one mb-6">
+                            <i class="fas fa-users mr-3 text-orange-500"></i>
+                            Uma Equipe de Sonhadores
+                        </h2>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                            "A Terra Onde o Sapo Não Canta" é resultado do trabalho conjunto de pessoas talentosas e dedicadas que acreditaram na importância de preservar nossa cultura através da literatura.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Cada colaborador trouxe sua expertise única, contribuindo para que esta história ganhasse vida e chegasse até você com toda a qualidade e carinho que merece.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Estatísticas -->
+                <div class="stats-section max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="stat-item">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Colaboradores</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">6</div>
+                            <div class="stat-label">Meses de Trabalho</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Dedicação</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1</div>
+                            <div class="stat-label">Sonho Realizado</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid de Colaboradores -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                    
+                    <!-- Colaborador 1 -->
+                    <div class="collaborator-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="photo-placeholder">
+                            <img src="Rivaildo.jpg" alt="Riva - Rivaildo Alves dos Santos" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <h3 class="collaborator-name">"Riva" - Rivaildo Alves dos Santos</h3>
+                        <p class="collaborator-role">Texto</p>
+                        <p class="collaborator-description">
+                            Sabe aquele jeito gostoso de contar histórias? Veio do Riva! Ele é Guia de Turismo Regional (pelo MTUR) e produtor de eventos culturais. Foi ele quem escreveu o texto com todo cuidado pra encantar adultos e crianças.
+                        </p>
+                    </div>
+
+                    <!-- Colaborador 2 -->
+                    <div class="collaborator-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="photo-placeholder">
+                            <img src="Gabi.jpg" alt="Gabi - Sthéfanny Gabriele Raimundo Nunes" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <h3 class="collaborator-name">"Gabi" - Sthéfanny Gabriele Raimundo Nunes</h3>
+                        <p class="collaborator-role">Revisão</p>
+                        <p class="collaborator-description">
+                            A Gabi deu aquela revisada caprichada no livro! Ela é formada em Letras pela UEPB e cuidou de cada detalhe do texto pra que a leitura ficasse leve, divertida e, claro, certinha pra ler com os pequenos.
+                        </p>
+                    </div>
+
+                    <!-- Colaborador 3 -->
+                    <div class="collaborator-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="photo-placeholder">
+                            <img src="Duda.jpg" alt="Duda - Maria Eduarda de Oliveira Felix" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <h3 class="collaborator-name">"Duda" - Maria Eduarda de Oliveira Felix</h3>
+                        <p class="collaborator-role">Pesquisa</p>
+                        <p class="collaborator-description">
+                            Quer saber de onde vem tanta história boa? Da pesquisa da Duda! Ela é formada em História pela UEPB e tem especialização em História do Brasil. Com ela, o livro ganhou ainda mais verdade, cultura e conexão com as raízes de Alagoa Grande.
+                        </p>
+                    </div>
+
+                    <!-- Colaborador 4 -->
+                    <div class="collaborator-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="photo-placeholder">
+                            <img src="Walter.jpg" alt="Walter Jr. - Walter José Ribeiro Júnior" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <h3 class="collaborator-name">"Walter Jr." - Walter José Ribeiro Júnior</h3>
+                        <p class="collaborator-role">Ilustração</p>
+                        <p class="collaborator-description">
+                            E os desenhos lindos do livro? Foram feitos pelo Walter Jr.! Ele é formado em Desenho Industrial pela UFPB, com pós em Administração e Marketing. As ilustrações dele são cheias de cor, alegria e expressão, perfeitas pra prender a atenção da criançada!
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Agradecimento -->
+        <section class="py-8">
+            <div class="container mx-auto px-4">
+                <div class="thank-you-section" data-aos="zoom-in">
+                    <h2 class="text-4xl font-fredoka-one mb-6 text-white">
+                        <i class="fas fa-heart mr-3"></i>
+                        Minha Eterna Gratidão
+                    </h2>
+                    <p class="text-xl leading-relaxed mb-6">
+                        Cada colaborador foi fundamental para transformar este sonho em realidade. Sem o talento, dedicação e apoio de cada um, "A Terra Onde o Sapo Não Canta" não existiria.
+                    </p>
+                    <p class="text-lg">
+                        <strong>Juntos, criamos algo verdadeiramente especial!</strong>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="py-12">
+            <div class="container mx-auto px-4 text-center">
+                <div class="bg-white rounded-2xl p-8 shadow-xl max-w-2xl mx-auto" data-aos="fade-up">
+                    <h3 class="text-2xl font-fredoka-one mb-4">Quer Conhecer Mais Sobre o Livro?</h3>
+                    <p class="text-gray-700 mb-6">
+                        Descubra a história completa por trás da criação de "A Terra Onde o Sapo Não Canta" e mergulhe na aventura do Sapinho Tião.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="site.html" 
+                           class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg inline-flex items-center gap-2">
+                            <i class="fas fa-book"></i>
+                            Sobre o Livro
+                        </a>
+                        <a href="pagamento.html" 
+                           class="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-3 rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg inline-flex items-center gap-2">
+                            <i class="fas fa-shopping-cart"></i>
+                            Comprar Agora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-blue-800 text-white p-6 text-center">
+        <div class="container mx-auto">
+            <p class="mb-2">
+                A Terra Onde o Sapo Não Canta - Todos os direitos reservados © 2025
+            </p>
+            <p class="text-sm opacity-75">
+                Desenvolvido com ❤️ pela <a href="https://www.isluwebdesign.com.br" target="_blank" class="hover:text-blue-200">Islu Web Design</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Efeito de parallax sutil nos cards
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const cards = document.querySelectorAll('.collaborator-card');
+            
+            cards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const speed = 0.01 * (index % 2 === 0 ? 1 : -1);
+                    const yPos = scrolled * speed;
+                    card.style.transform = `translateY(${yPos}px)`;
+                }
+            });
+        });
+
+        // Efeito de hover aprimorado nos cards
+        document.querySelectorAll('.collaborator-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+                this.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.15)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.1)';
+            });
+        });
+    </script>
+</body>
+</html>
+
