@@ -22,7 +22,7 @@ O maior desafio foi transpor a "magia" do livro físico para o ambiente digital.
 - **Responsividade:** Experiência otimizada para pais e educadores que acessam via mobile.
 
 ## 🌐 Link do Projeto
-Conheça a história: [https://amaple28.github.io/Marcelo/](https://amaple28.github.io/Marcelo/)
+Conheça a história: [https://github.com/Amaple28/o_sapo_nao_canta](https://github.com/Amaple28/o_sapo_nao_canta)
 
 ---
 Desenvolvido por **Maisa Rodrigues**
